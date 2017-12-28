@@ -1,4 +1,6 @@
-/bin/
+bin/
 
 .classpath
 .project
+sources.txt
+deploy/
