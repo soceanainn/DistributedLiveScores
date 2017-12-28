@@ -16,7 +16,7 @@ public class TestClient {
 	public static void main(String[] args) throws ResourceException, IOException {
 		Gson gson = new Gson();
 		ClientResource client = new ClientResource(Main.SOCCER_SERVICE);
-		client.post("MUvsPSG");
+		client.post(gson.toJson("MU:PSG"));
 		String location = ((Series<NamedValue<String>>) client.getResponseAttributes().get("org.restlet.http.headers")).getFirstValue("Location");
 		System.out.println("URL: " + location);
 		ClientResource game = new ClientResource(location);

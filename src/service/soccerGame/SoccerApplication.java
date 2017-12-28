@@ -43,7 +43,8 @@ public class SoccerApplication extends Application {
 					response.setEntity(out + "]", MediaType.APPLICATION_JSON);
 				} else if (request.getMethod().equals(Method.POST)) {
 					String prefix = gson.fromJson(request.getEntityAsText(), String.class);
-					Game game = gs.createGame(prefix);
+					String[] teams = prefix.split(":");
+					Game game = gs.createGame(teams[0], teams[1]);
 					if (!games.containsKey(game.reference)) {
 						games.put(game.reference, game);
 						response.setLocationRef(request.getHostRef() + "/games/" + game.reference);

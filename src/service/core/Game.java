@@ -12,8 +12,8 @@ import java.text.SimpleDateFormat;
 public class Game {
 	private static DateFormat TimeFormat = new SimpleDateFormat("HH:mm");
 	
-	public Game (String s) {
-		reference = s;
+	public Game (String ref) {
+		reference = ref;
 		startTime = TimeFormat.format(new Date());
 		events.add(new Event(0, EventType.START, null));
 	}
@@ -29,8 +29,8 @@ public class Game {
 	public String startTime;
 	public String homeTeam;
 	public String awayTeam;
-	public String homeScore;
-	public String awayScore;
+	public String homeScore = "0";
+	public String awayScore = "0";
 	
 	private List<Event> events = new ArrayList<Event>();
 	public String reference;

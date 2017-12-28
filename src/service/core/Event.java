@@ -20,8 +20,15 @@ public class Event {
 		eventType = e;
 		team = t;
 		time = TimeFormat.format(new Date());
+		status = "";
 	}
 	
+	public Event setStatus (String s) {
+		this.status = s;
+		return this;
+	}
+	
+	public String status;
 	public int player;
 	public EventType eventType;
 	public Team team;

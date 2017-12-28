@@ -53,49 +53,49 @@ public class Main {
 		switch (event.eventType) {
 			case GOAL:
 				System.out.println(
-						event.time + ": #" + event.player + " scored a goal for the " + (event.team == Team.HOME ? "home"
+						event.time + " " + event.status + ": #" + event.player + " scored a goal for the " + (event.team == Team.HOME ? "home"
 								: "away") + " team.");
 				break;
 				
 			case FREE:
-				System.out.println(event.time + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
+				System.out.println(event.time + " " + event.status + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
 						: "away") + " team was awarded a free.");
 				break;
 				
 			case START: 
-				System.out.println(event.time + ": The match has begun.");
+				System.out.println(event.time + " " + event.status + ": The match has begun.");
 				break;
 				
 			case FULL_TIME:
-				System.out.println(event.time + ": Full time.");
+				System.out.println(event.time + " " + event.status + ": Full time.");
 				break;
 				
 			case HALF_TIME:
-				System.out.println(event.time + ": Half time.");
+				System.out.println(event.time + " " + event.status + ": Half time.");
 				break;
 				
 			case SECOND_HALF:
-				System.out.println(event.time + ": The second half has begun.");
+				System.out.println(event.time + " " + event.status + ": The second half has begun.");
 				break;
 				
 			case PENALTY:
-				System.out.println(event.time + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
+				System.out.println(event.time + " " + event.status + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
 						: "away") + " team was awarded a penalty.");
 				break;
 				
 			case POINT:
 				System.out.println(
-						event.time + ": #" + event.player + " scored a point for the " + (event.team == Team.HOME ? "home"
+						event.time + " " + event.status + ": #" + event.player + " scored a point for the " + (event.team == Team.HOME ? "home"
 								: "away") + " team.");
 				break;
 				
 			case RED_CARD:
-				System.out.println(event.time + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
+				System.out.println(event.time + " " + event.status + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
 						: "away") + " team was given a red card.");
 				break;
 				
 			case YELLOW_CARD:
-				System.out.println(event.time + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
+				System.out.println(event.time + " " + event.status + ": #" + event.player + " from the " +  (event.team == Team.HOME ? "home"
 						: "away") + " team was given a yellow card.");
 				break;
 		}

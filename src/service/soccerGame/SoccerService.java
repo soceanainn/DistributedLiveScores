@@ -29,11 +29,16 @@ public class SoccerService extends AbstractGameService implements GameService {
 				g.awayScore = "" + (Integer.parseInt(g.awayScore) + 1);
 			}
 		}
+		String st = g.homeTeam + " " + g.homeScore + "-" + g.awayScore + " " + g.awayTeam;
+		e.setStatus(st);
 		g.addEvent(e);
 	}
 	
 	@Override
-	public Game createGame(String prefix) {
-		return new Game(generateReference(prefix));
+	public Game createGame(String team1, String team2) {
+		Game g = new Game(generateReference(team1 + "vs" + team2));
+		g.homeTeam = team1;
+		g.awayTeam = team2;
+		return g;
 	}
 }

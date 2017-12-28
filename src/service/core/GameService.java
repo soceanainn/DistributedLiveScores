@@ -12,5 +12,5 @@ public interface GameService extends Service {
 
 	public void addEvent(Game g, Event e);
 	
-	public Game createGame(String s);
+	public Game createGame(String t1, String t2);
 }
