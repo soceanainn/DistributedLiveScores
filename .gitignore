@@ -1,5 +1,6 @@
 bin/
 
+activemq-all-5.6.0.jar
 .classpath
 .project
 deploy/

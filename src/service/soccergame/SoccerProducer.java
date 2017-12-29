@@ -7,9 +7,12 @@ import service.core.Game;
 
 import java.util.List;
 
+import java.lang.InterruptedException;
+
 import service.core.AbstractGameService;
 import service.core.GameService;
 
+import javax.jms.JMSException;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -49,10 +52,14 @@ public class SoccerProducer {
 	public void update(MessageProducer matchProducer, Session session) {
 		Event currentEvent;
 		do {
-			Thread.sleep(1000);
+			try {
+				Thread.sleep(1000);
+			} catch(InterruptedException ie) {ie.printStackTrace();}
 			currentEvent = getNextEvent();
-			ObjectMessage event = session.createObjectMessage(currentEvent);
-			matchProducer.send(event);
+			try {
+				ObjectMessage event = session.createObjectMessage(currentEvent);
+				matchProducer.send(event);
+			} catch(JMSException je) {je.printStackTrace();}
 		} while(currentEvent.eventType != EventType.FULL_TIME);
 	}
 
@@ -64,5 +71,10 @@ public class SoccerProducer {
 		else {
 			return new Event(1, EventType.GOAL, Team.HOME, this.startTime-System.currentTimeMillis());
 		}
+	}
+
+	public static void main(String[] args) {
+		SoccerProducer sp = new SoccerProducer("MUvPSG");
+		sp.startGameBroadcast();
 	}
 }
