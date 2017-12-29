@@ -3,6 +3,7 @@ package client;
 import java.util.List;
 
 import service.core.Event;
+import service.core.Event.EventType;
 import service.core.Event.Team;
 
 import javax.jms.Connection;
@@ -37,11 +38,11 @@ public class Main {
 			connection.start();
 			Event currentEvent;
 			do {
-				Message message = consumer.receive();
-				currentEvent = (Event) message;
+				ObjectMessage message = (ObjectMessage) consumer.receive();
+				currentEvent = (Event) message.getObject();
 				displayEvent(currentEvent);
 				message.acknowledge();
-			} while(currentEvent.eventType != Event.EventType.FULL_TIME);
+			} while(currentEvent.eventType != EventType.FULL_TIME);
 			connection.close();
 		} catch (JMSException e) { e.printStackTrace(); }
 	}
