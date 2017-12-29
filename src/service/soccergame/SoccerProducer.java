@@ -40,9 +40,9 @@ public class SoccerProducer {
                 connection.setClientID("sender");
                 Session session = connection.createSession(false,
                     Session.AUTO_ACKNOWLEDGE);
-								Destination matchDestination = session.createTopic(this.game);
-								MessageProducer matchProducer = session.createProducer(matchDestination);
-								update(matchProducer, session);
+		Destination matchDestination = session.createTopic(this.game);
+		MessageProducer matchProducer = session.createProducer(matchDestination);
+		update(matchProducer, session);
             } catch (JMSException e) { e.printStackTrace(); }
 	}
 
