@@ -12,10 +12,24 @@ public class Event implements Serializable {
 
 	public enum EventType{
 		GOAL, POINT, PENALTY, FREE, RED_CARD, YELLOW_CARD, HALF_TIME, FULL_TIME, SECOND_HALF, START;
+
+		public static EventType getTypeFromString(String s) {
+			for(EventType e : EventType.values()) {
+				if(e.toString().equals(s)) return e;
+			}
+			return null;
+		}
 	}
 
 	public enum Team {
-		HOME, AWAY
+		HOME, AWAY;
+
+		public static Team getTeamFromString(String s) {
+			for(Team t : Team.values()) {
+				if(t.toString().equals(s)) return t;
+			}
+			return null;
+		}
 	}
 
 	public Event (int p, EventType e, Team t, long time) {
