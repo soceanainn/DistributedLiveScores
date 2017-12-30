@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import java.lang.InterruptedException;
+import java.lang.Runnable;
 
 import service.core.AbstractGameService;
 import service.core.GameService;
@@ -24,10 +25,12 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.ObjectMessage;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-public class SoccerProducer {
+public class SoccerProducer implements Runnable {
 	private String game;
 	private long startTime;
 	private Scanner read;
@@ -39,17 +42,19 @@ public class SoccerProducer {
 		this.game = game;
 	}
 
-	public void startGameBroadcast() {
+	public void run() {
 		this.startTime = System.currentTimeMillis();
 		ConnectionFactory connectionFactory =
                 new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
     try {
       Connection connection = connectionFactory.createConnection();
-      connection.setClientID("sender");
+      connection.setClientID(game+"sender");
       Session session = connection.createSession(false,
           Session.AUTO_ACKNOWLEDGE);
 			Destination matchDestination = session.createTopic(this.game);
 			MessageProducer matchProducer = session.createProducer(matchDestination);
+			// set time-to-live so messages last for length of game
+			matchProducer.setTimeToLive(7200000); // 7200000 = 120 minutes = 2 hours
 			update(matchProducer, session);
     } catch (JMSException e) { e.printStackTrace(); }
 	}
@@ -58,7 +63,7 @@ public class SoccerProducer {
 		Event currentEvent;
 		do {
 			try {
-				Thread.sleep(60000);
+				Thread.sleep(5000 + ThreadLocalRandom.current().nextInt(0, 1001));
 			} catch(InterruptedException ie) {ie.printStackTrace();}
 			currentEvent = getNextEvent();
 			try {
@@ -68,15 +73,9 @@ public class SoccerProducer {
 		} while(currentEvent.eventType != EventType.FULL_TIME);
 	}
 
-	// placeholder
 	public Event getNextEvent() {
 		String[] event = read.nextLine().split("\\s+");
 		return new Event(Integer.valueOf(event[0]), EventType.getTypeFromString(event[1])
 			,Team.getTeamFromString(event[2]), System.currentTimeMillis()-this.startTime);
-	}
-
-	public static void main(String[] args) {
-		SoccerProducer sp = new SoccerProducer("MUvPSG");
-		sp.startGameBroadcast();
 	}
 }

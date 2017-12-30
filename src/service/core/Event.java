@@ -36,7 +36,7 @@ public class Event implements Serializable {
 		player = p;
 		eventType = e;
 		team = t;
-		this.time = String.valueOf(Math.round(time / 60000));
+		this.time = String.valueOf(Math.round(time / 60000)) + "m";
 		status = "";
 	}
 
