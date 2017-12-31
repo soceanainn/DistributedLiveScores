@@ -40,8 +40,7 @@ public class Main {
             new SoccerConsumer(TOPICS[i], IDS[i], connection, session, consumersFinished)));
         list.get(i).start();
       }
-      // wait for consumers to finish and their threads to finish before closing
-      // connection
+      // wait for consumers to finish before closing
       try {
         consumersFinished.await();
       } catch(InterruptedException ie) {ie.printStackTrace();}

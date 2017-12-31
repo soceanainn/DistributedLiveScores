@@ -50,7 +50,7 @@ public class SoccerConsumer implements Runnable {
 			} while(currentEvent.eventType != EventType.FULL_TIME);
 			// tidy up
 			consumer.close();
-			session.unsubscribe(this.id+this.game);
+			//session.unsubscribe(this.id+this.game);
 			this.done.countDown();
 		} catch (JMSException e) { e.printStackTrace(); }
 	}

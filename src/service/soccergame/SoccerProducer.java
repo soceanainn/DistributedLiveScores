@@ -35,9 +35,9 @@ public class SoccerProducer implements Runnable {
 	private long startTime;
 	private Scanner read;
 
-	public SoccerProducer(String game) {
+	public SoccerProducer(String game, String script) {
 		try {
-			this.read = new Scanner(new File("../match.txt"));
+			this.read = new Scanner(new File(script));
 		} catch(FileNotFoundException fe) {fe.printStackTrace();}
 		this.game = game;
 	}
@@ -63,7 +63,7 @@ public class SoccerProducer implements Runnable {
 		Event currentEvent;
 		do {
 			try {
-				Thread.sleep(5000 + ThreadLocalRandom.current().nextInt(0, 1001));
+				Thread.sleep(ThreadLocalRandom.current().nextInt(5000, 15001));
 			} catch(InterruptedException ie) {ie.printStackTrace();}
 			currentEvent = getNextEvent();
 			try {
